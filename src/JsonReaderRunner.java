@@ -12,13 +12,18 @@ import java.util.stream.Collectors;
 
 public class JsonReaderRunner {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         //Получаем список билетов
-        List<Ticket> ticketList = objectMapper.readValue(new File(
-                "tickets.json"),
-                        TicketList.class).getTickets();
+        List<Ticket> ticketList = null;
+        try {
+            ticketList = objectMapper.readValue(new File(
+                    "tickets.json"),
+                            TicketList.class).getTickets();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //Количество полетов
         int numberOfFlights = ticketList.size();
